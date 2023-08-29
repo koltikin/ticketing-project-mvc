@@ -42,4 +42,12 @@ public class ProjectControl {
         return "redirect:/project/create";
     }
 
+    @GetMapping("/delete/{projectCode}")
+    public String projectDelete(@PathVariable("projectCode") String projectCode){
+
+        projectService.deleteById(projectCode);
+
+        return "redirect:/project/create";
+    }
+
 }
