@@ -31,6 +31,7 @@ public class RoleServiceImpl extends AbstractMapService<RoleDTO,Long> implements
 
     @Override
     public void update(RoleDTO role) {
+
         super.update(role,role.getId());
 
     }

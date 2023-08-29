@@ -26,18 +26,18 @@
 
                             <section class="panel panel-transparent">
                                 <header class="panel-heading">
-                                    <h2 class="panel-title">Project Update</h2>
+                                    <h2 class="panel-title">Project Create</h2>
                                 </header>
 
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form>
+                                    <form th:object="${project}" th:action="@{/project/update/{status}(status = ${project.projectStatus})}" method="post">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="projectname" class="col-form-label">Project Name</label>
-                                                    <input id="projectname" type="text" class="form-control" placeholder="project name">
+                                                    <input th:field="*{projectName}" id="projectname" type="text" class="form-control" placeholder="project name">
                                                 </div>
                                             </div>
                                         </div>
@@ -45,7 +45,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="projectcode" class="col-form-label">Project Code</label>
-                                                    <input id="projectcode" type="text" class="form-control" placeholder="project code">
+                                                    <input th:field="*{projectCode}" id="projectcode" type="text" class="form-control" placeholder="project code">
                                                 </div>
                                             </div>
                                         </div>
@@ -53,8 +53,10 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>Assigned Manager</label>
-                                                    <select name="assignedmanager" class="custom-select">
-                                                        <option></option>
+                                                    <select th:field="*{projectManager}" name="assignedmanager" class="custom-select">
+                                                        <option th:each="manager:${managers}"
+                                                                th:value="${manager.userName}"
+                                                                th:text="${manager.firstName + ' ' + manager.lastName}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -63,13 +65,13 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="startdate">Project Start Date</label>
-                                                    <input id="startdate" type="date" class="form-control">
+                                                    <input th:field="*{projectStartDate}" id="startdate" type="date" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="enddate">Project End Date</label>
-                                                    <input id="enddate" type="date" class="form-control">
+                                                    <input th:field="*{projectEndDate}" id="enddate" type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -77,14 +79,14 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="projectdetail">Project Detail</label>
-                                                    <textarea id="projectdetail" class="form-control"></textarea>
+                                                    <textarea th:field="*{projectDetail}" id="projectdetail" class="form-control" placeholder="project detail"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="float-right">
-                                                    <button class="btn btn-success rounded-0" type="submit">Save</button>
+                                                    <button class="btn btn-success rounded-0" type="submit">Update</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,16 +128,16 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="prj:${projectList}">
+                                                <td th:text="${prj.projectCode}"></td>
+                                                <td th:text="${prj.projectName}"></td>
+                                                <td th:text="${#temporals.format(prj.projectStartDate,'dd/MM/yyyy') + '-' + #temporals.format(prj.projectEndDate,'dd/MM/yyyy')}"></td>
+                                                <td th:text="${prj.projectManager.firstName + ' ' + prj.projectManager.lastName}"></td>
+                                                <td th:text="${prj.projectStatus.value}"></td>
                                                 <td>
-                                                    <a href="#"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a href="#"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
-                                                    <a href="#"><button type="button" class="btn btn-info rounded-0">Complete</button></a>
+                                                    <a th:href="@{/project/update/{projectCode}(projectCode = ${prj.projectCode})}"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
+                                                    <a th:href="@{/project/delete/{projectCode}(projectCode = ${prj.projectCode})}"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
+                                                    <a th:href="@{/project/complete/{projectCode}(projectCode = ${prj.projectCode})}"><button type="button" class="btn btn-info rounded-0">Complete</button></a>
                                                 </td>
                                             </tr>
                                             </tbody>
