@@ -3,7 +3,6 @@ package com.cydeo.service.impl;
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
