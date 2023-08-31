@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements TaskService {
@@ -54,4 +55,17 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
         return (int) findAll().stream().filter(tk->tk.getProject().equals(project))
                 .count()-findUnfinishedTaskCount(project);
     }
+
+    @Override
+    public List<TaskDTO> findNotCompletedTasks() {
+        return findAll().stream().filter(tk->!tk.getTaskStatus().equals(Status.COMPLETE))
+                .collect(Collectors.toList());
+    }
+
+    public List<TaskDTO> findCompletedTasks() {
+        return findAll().stream().filter(tk->tk.getTaskStatus().equals(Status.COMPLETE))
+                .collect(Collectors.toList());
+    }
+
+
 }

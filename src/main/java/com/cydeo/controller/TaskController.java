@@ -1,6 +1,7 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.TaskDTO;
+import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.TaskService;
 import com.cydeo.service.UserService;
@@ -66,4 +67,24 @@ public class TaskController {
         return "redirect:/task/create";
 
     }
+
+    @GetMapping("/pending-tasks")
+    public String pendingTasks(Model model){
+
+        model.addAttribute("pendingTasks",taskService.findNotCompletedTasks());
+
+        return "/task/pending-tasks";
+
+    }
+
+    @GetMapping("/task-update/{id}")
+    public String taskUpdateStatus(@PathVariable("id") Long id, Model model){
+
+        model.addAttribute("tasks",taskService.findById(id));
+
+        return "/task/status-update";
+
+    }
+
+
 }
