@@ -1,6 +1,7 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.ProjectDTO;
+import com.cydeo.dto.UserDTO;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
@@ -67,6 +68,17 @@ public class ProjectControl {
         projectService.update(project);
 
         return "redirect:/project/create";
+    }
+
+    @GetMapping("/manager/project-status")
+    public String projectStatus(Model model){
+
+        UserDTO manager = userService.findById("john@cydeo.com");
+
+        model.addAttribute("projects", projectService.findCountedProjectsByManager(manager));
+
+
+        return "/manager/project-status";
     }
 
 }

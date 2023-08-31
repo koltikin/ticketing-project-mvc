@@ -42,18 +42,20 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="prj:${projects}">
+                                                <td th:text="${prj.projectCode}"></td>
+                                                <td th:text="${prj.projectName}"></td>
+                                                <td th:text="${#temporals.format(prj.projectStartDate,'dd-MM-yyyy') + '/' + #temporals.format(prj.projectStartDate,'dd-MM-yyyy')}"></td>
+                                                <td th:text="${prj.projectManager.firstName + ' ' + prj.projectManager.lastName}"></td>
+                                                <td th:text="${prj.unfinishedCount + '/' + prj.completedCount}"></td>
+                                                <td th:text="${prj.projectStatus.value}"></td>
                                                 <td>
                                                     <!--Show this if the project can be completed-->
-                                                    <a class="btn btn-info rounded-0" href="#">Complete</a>
+                                                    <a th:if="${prj.unfinishedCount == 0 && prj.projectStatus.value != 'Completed'}"
+                                                            class="btn btn-info rounded-0" href="#">Complete</a>
                                                     <!--Show this if the project can not be completed-->
-                                                    <a class="btn btn-info rounded-0 disabled-button">Complete</a>
+                                                    <a th:if="${prj.unfinishedCount != 0 || prj.projectStatus.value == 'Completed'}"
+                                                            class="btn btn-info rounded-0 disabled-button">Complete</a>
                                                 </td>
                                             </tr>
                                             </tbody>

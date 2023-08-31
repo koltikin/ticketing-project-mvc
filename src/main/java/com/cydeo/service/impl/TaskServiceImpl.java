@@ -1,5 +1,6 @@
 package com.cydeo.service.impl;
 
+import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.TaskDTO;
 import com.cydeo.enums.Status;
 import com.cydeo.service.TaskService;
@@ -40,6 +41,17 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
     @Override
     public void update(TaskDTO task) {
         super.update(task,task.getId());
+    }
 
+    @Override
+    public int findUnfinishedTaskCount(ProjectDTO project) {
+        return (int) findAll().stream().filter(tk->tk.getProject().equals(project))
+                .filter(tk->!tk.getTaskStatus().equals(Status.COMPLETE)).count();
+    }
+
+    @Override
+    public int findCompletedTaskCount(ProjectDTO project) {
+        return (int) findAll().stream().filter(tk->tk.getProject().equals(project))
+                .count()-findUnfinishedTaskCount(project);
     }
 }
