@@ -52,7 +52,7 @@
                                                 <td>
                                                     <!--Show this if the project can be completed-->
                                                     <a th:if="${prj.unfinishedCount == 0 && prj.projectStatus.value != 'Completed'}"
-                                                            class="btn btn-info rounded-0" href="#">Complete</a>
+                                                            th:href="@{/project/manager/project-status/complete/{code}(code = ${prj.projectCode})}" class="btn btn-info rounded-0">Complete</a>
                                                     <!--Show this if the project can not be completed-->
                                                     <a th:if="${prj.unfinishedCount != 0 || prj.projectStatus.value == 'Completed'}"
                                                             class="btn btn-info rounded-0 disabled-button">Complete</a>
