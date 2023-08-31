@@ -80,9 +80,21 @@ public class TaskController {
     @GetMapping("/task-update/{id}")
     public String taskUpdateStatus(@PathVariable("id") Long id, Model model){
 
-        model.addAttribute("tasks",taskService.findById(id));
+        model.addAttribute("task",taskService.findById(id));
+        model.addAttribute("statuses",Status.values());
+        model.addAttribute("pendingTasks",taskService.findNotCompletedTasks());
 
         return "/task/status-update";
+
+    }
+
+    @PostMapping("/task-update/{id}")
+    public String taskUpdateStatusSave(@ModelAttribute("task") TaskDTO task){
+
+        taskService.taskStatusUpdate(task);
+
+
+        return "redirect:/task/pending-tasks";
 
     }
 
