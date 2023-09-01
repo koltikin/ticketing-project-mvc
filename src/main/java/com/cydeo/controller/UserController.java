@@ -6,8 +6,10 @@ import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -24,7 +26,16 @@ public class UserController {
         return "user/create";
     }
     @PostMapping("/save")
-    public String userSave(@ModelAttribute("user") UserDTO user){
+    public String userSave(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model){
+
+        if(bindingResult.hasErrors()){
+
+            model.addAttribute("roles",roleService.findAll());
+            model.addAttribute("userList",userService.findAll());
+
+            return "user/create";
+
+        }
         userService.save(user);
         return "redirect:/user/create";
     }
