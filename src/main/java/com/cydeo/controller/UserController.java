@@ -56,7 +56,12 @@ public class UserController {
     }
 
     @PostMapping("/update-save")
-    public String userUpdate(@ModelAttribute("user") UserDTO user){
+    public String userUpdate(@Valid @ModelAttribute("user") UserDTO user, BindingResult bindingResult, Model model){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("roles",roleService.findAll());
+            model.addAttribute("userList",userService.findAll());
+            return "/user/update";
+        }
 
         userService.update(user);
 
