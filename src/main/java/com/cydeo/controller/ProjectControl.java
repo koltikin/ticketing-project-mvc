@@ -8,7 +8,10 @@ import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @AllArgsConstructor
@@ -28,7 +31,17 @@ public class ProjectControl {
     }
 
     @PostMapping("/create")
-    public String projectCreateSave(@ModelAttribute("project") ProjectDTO project, Model model){
+    public String projectCreateSave(@Valid @ModelAttribute("project") ProjectDTO project, BindingResult bindingResult, Model model){
+
+        if (bindingResult.hasErrors()){
+
+            model.addAttribute("projectList", projectService.findAll());
+            model.addAttribute("managers", userService.findManagers());
+
+            return "/project/create";
+        }
+
+
         projectService.save(project);
 
 
@@ -64,7 +77,15 @@ public class ProjectControl {
 
 
     @PostMapping("/update/{projectStatus}")
-    public String projectUpdateSave(@ModelAttribute("project") ProjectDTO project){
+    public String projectUpdateSave(@Valid @ModelAttribute("project") ProjectDTO project,BindingResult bindingResult, Model model){
+
+        if (bindingResult.hasErrors()){
+
+            model.addAttribute("projectList", projectService.findAll());
+            model.addAttribute("managers", userService.findManagers());
+            return "/project/update";
+
+        }
 
         projectService.update(project);
 

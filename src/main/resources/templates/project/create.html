@@ -38,6 +38,14 @@
                                                 <div class="form-group">
                                                     <label for="projectname" class="col-form-label">Project Name</label>
                                                     <input th:field="*{projectName}" id="projectname" type="text" class="form-control" placeholder="project name">
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('projectName')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('projectName')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -46,6 +54,14 @@
                                                 <div class="form-group">
                                                     <label for="projectcode" class="col-form-label">Project Code</label>
                                                     <input th:field="*{projectCode}" id="projectcode" type="text" class="form-control" placeholder="project code">
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('projectCode')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('projectCode')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -58,6 +74,14 @@
                                                                 th:value="${manager.userName}"
                                                                 th:text="${manager.firstName + ' ' + manager.lastName}"></option>
                                                     </select>
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('projectManager')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('projectManager')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -66,12 +90,28 @@
                                                 <div class="form-group">
                                                     <label for="startdate">Project Start Date</label>
                                                     <input th:field="*{projectStartDate}" id="startdate" type="date" class="form-control">
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('projectStartDate')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('projectStartDate')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label for="enddate">Project End Date</label>
                                                     <input th:field="*{projectEndDate}" id="enddate" type="date" class="form-control">
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('projectEndDate')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('projectEndDate')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -80,6 +120,14 @@
                                                 <div class="form-group">
                                                     <label for="projectdetail">Project Detail</label>
                                                     <textarea th:field="*{projectDetail}" id="projectdetail" class="form-control" placeholder="project detail"></textarea>
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('projectDetail')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('projectDetail')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
