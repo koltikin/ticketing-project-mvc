@@ -8,7 +8,10 @@ import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @AllArgsConstructor
@@ -31,7 +34,17 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String taskCreateSave(@ModelAttribute("task") TaskDTO task){
+    public String taskCreateSave(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult,Model model){
+
+        if (bindingResult.hasErrors()){
+
+            model.addAttribute("projects",projectService.findAll());
+            model.addAttribute("employees", userService.findAll());
+            model.addAttribute("tasksList", taskService.findAll());
+
+            return "/task/create";
+
+        }
 
         taskService.save(task);
 
@@ -60,7 +73,18 @@ public class TaskController {
     }
 
     @PostMapping("/update/{id}/{taskStatus}/{assignedDate}")
-    public String taskUpdateSAve(@ModelAttribute("task") TaskDTO task){
+    public String taskUpdateSAve(@ModelAttribute("task") TaskDTO task,BindingResult bindingResult,Model model){
+
+
+        if (bindingResult.hasErrors()){
+
+            model.addAttribute("projects",projectService.findAll());
+            model.addAttribute("employees", userService.findAll());
+            model.addAttribute("tasksList", taskService.findAll());
+
+            return "/task/update";
+
+        }
 
         taskService.update(task);
 

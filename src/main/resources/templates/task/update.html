@@ -67,6 +67,14 @@
                                                     <label for="tasksubject" class="col-form-label">Task Subject</label>
                                                     <input th:field="*{taskSubject}" id="tasksubject" type="text" class="form-control"
                                                            placeholder="task subject">
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('taskSubject')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('taskSubject')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -77,6 +85,15 @@
                                                     <label for="taskdetail">Task Detail</label>
                                                     <textarea th:field="*{taskDetail}" id="taskdetail" class="form-control"
                                                               placeholder="task detail"></textarea>
+
+                                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('taskDetail')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('taskDetail')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
