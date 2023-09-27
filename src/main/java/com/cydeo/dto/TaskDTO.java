@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Data
@@ -16,7 +17,9 @@ public class TaskDTO {
     private Long id;
     private ProjectDTO project;
     private UserDTO assignedEmployee;
+    @NotBlank(message = "task subject is required.")
     private String taskSubject;
+    @NotBlank(message = "task detail is required.")
     private String taskDetail;
     private Status taskStatus;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
