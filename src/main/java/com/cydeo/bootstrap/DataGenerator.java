@@ -2,7 +2,7 @@ package com.cydeo.bootstrap;
 
 import com.cydeo.dto.RoleDTO;
 import com.cydeo.dto.UserDTO;
-import com.cydeo.enus.Gender;
+import com.cydeo.enums.Gender;
 import com.cydeo.service.RoleService;
 import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
