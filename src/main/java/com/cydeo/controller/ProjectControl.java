@@ -2,6 +2,7 @@ package com.cydeo.controller;
 
 import com.cydeo.dto.ProjectDTO;
 import com.cydeo.dto.UserDTO;
+import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserService;
 import lombok.AllArgsConstructor;
@@ -79,6 +80,14 @@ public class ProjectControl {
 
 
         return "/manager/project-status";
+    }
+    @GetMapping("/manager/project-status/complete/{projectCode}")
+    public String projectStatusComplete(@PathVariable("projectCode") String projectCode) {
+
+        projectService.findById(projectCode).setProjectStatus(Status.COMPLETE);
+
+
+        return "redirect:/project/manager/project-status";
     }
 
 }
