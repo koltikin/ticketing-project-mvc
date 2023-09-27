@@ -11,7 +11,7 @@ public class MessagePropertyConfig {
     public MessageSource messageSource(){
         ResourceBundleMessageSource resource = new ResourceBundleMessageSource();
 
-        resource.setBasenames("messages/userCreateValidation");
+        resource.setBasenames("messages/userCreateValidation", "messages/projectCreateValidation");
 
         return resource;
     }
